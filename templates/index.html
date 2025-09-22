@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100 font-sans antialiased">
+
+  <!-- Navbar -->
+  <nav class="bg-black p-4 text-white flex flex-col sm:flex-row sm:justify-between items-center">
+    <h1 class="text-2xl font-bold mb-2 sm:mb-0">QR Code Generator</h1>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto mt-10 px-4">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      
+      <!-- Intro -->
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold mb-2">Welcome to the QR Code Generator</h2>
+        <p class="text-gray-700">Generate QR codes from your text or links!</p>
+      </div>
+
+      <!-- Input Form -->
+      <div class="mt-8">
+        <h2 class="text-xl mb-4 font-semibold">Enter Your Link</h2>
+        <form method="post" class="flex flex-col sm:flex-row gap-4">
+          <input
+            id="userinput"
+            name="userinput"
+            type="text"
+            placeholder="Input link..."
+            class="flex-grow p-2 border border-gray-300 rounded-md sm:rounded-l-md sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <button
+            type="submit"
+            class="bg-black text-white px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-gray-800 transition-colors"
+          >
+            Generate
+          </button>
+        </form>
+      </div>
+
+      <!-- Output Section -->
+      {% if qr_filename %}
+      <section class="mt-10 text-center">
+        <h2 class="text-xl mb-4 font-semibold">Generated QR Code</h2>
+        <p><strong>Input Link:</strong> {{ user_link }}</p>
+        
+        <div class="bg-gray-50 p-4 rounded-md border">
+          <img src="{{ qr_filename }}" alt="QR Code" class="mx-auto mb-4 w-48 h-48"/>
+          <a href="{{ qr_filename }}" download class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">Download</a>
+        </div>
+      </section>
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center p-4 text-black mt-6">
+    Powered by <a href="https://github.com/oladayotech" class="underline hover:text-blue-700">Oladayotech</a>
+  </footer>
+</body>
+</html>
