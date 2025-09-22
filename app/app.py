@@ -1,13 +1,17 @@
-from django.shortcuts import render
-from django.http import FileResponse
-import os, datetime, qrcode
+import os
+from flask import Flask, render_template, request, send_file
+import qrcode
+from datetime import datetime
 
-def index(request):
+app = Flask(__name__)
+
+@app.route("/", methods=["GET", "POST"])
+def index():
     qr_filename = None
     user_link = None
 
     if request.method == "POST":
-        user_link = request.POST.get("userinput")   # ✅ Django way
+        user_link = request.form.get("userinput")
         if user_link:
             # ensure static folder exists
             os.makedirs("static", exist_ok=True)
@@ -25,12 +29,16 @@ def index(request):
             img = qr.make_image(fill_color="black", back_color="white")
             img.save(qr_path)
 
-            qr_filename = filename
-    return render(request, 'index.html', {
-        'qr_filename': qr_filename,
-        'user_link': user_link
-    })
+            qr_filename = filename  # relative path used in template
 
-def download(request, filename):
-    filepath = os.path.join("static", filename)
-    return FileResponse(open(filepath, 'rb'), as_attachment=True)
+    return render_template("index.html", qr_filename=qr_filename, user_link=user_link)
+
+
+@app.route("/download/<filename>")
+def download(filename):
+    return send_file(os.path.join("static", filename), as_attachment=True)
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
