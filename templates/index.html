@@ -50,8 +50,10 @@
         <p><strong>Input Link:</strong> {{ user_link }}</p>
         
         <div class="bg-gray-50 p-4 rounded-md border">
-          <img src="{{ qr_filename }}" alt="QR Code" class="mx-auto mb-4 w-48 h-48"/>
-          <a href="{{ qr_filename }}" download class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">Download</a>
+          {% if qr_filename %}
+            <img src="{{ url_for('static', filename=qr_filename) }}" alt="QR Code"/>
+            <a href="{{ url_for('static', filename=qr_filename) }}" download>Download</a>
+          {% endif %}
         </div>
       </section>
       {% endif %}
