@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import FileResponse
-import os, datetime, qrcode
+import os, qrcode
+
+from datetime import datetime
 
 def index(request):
     qr_filename = None

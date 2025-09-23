@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'qrcode'
+    # 'qrcode_app',
 ]
 
 ROOT_URLCONF = 'qrcodegenerator.urls'
